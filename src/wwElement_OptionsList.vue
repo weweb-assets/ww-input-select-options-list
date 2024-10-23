@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { inject, computed, watch } from 'vue';
+import { ref, inject, computed, watch } from 'vue';
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 
 export default {
@@ -51,8 +51,8 @@ export default {
     },
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
-        const selectData = inject('_wwSelectData', []);
-        const optionsFilter = inject('_wwSelectOptionsFilter');
+        const selectData = inject('_wwSelectData', ref([]));
+        const optionsFilter = inject('_wwSelectOptionsFilter', ref(null));
         const overwrittenItems = computed(() => props.content.overwrittenItems);
         const useVirtualScroll = computed(() => props.content.virtualScroll);
         const virtualScrollSizeDependencies = computed(() => props.content.virtualScrollSizeDependencies);
