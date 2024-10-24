@@ -67,18 +67,18 @@ export default {
             });
         });
 
-        // watch(
-        //     options,
-        //     () => {
-        //         if (options.value && options.value.length > 0) {
-        //             emit('update:sidepanel-content', {
-        //                 path: 'optionProperties',
-        //                 value: Object.keys(options.value[0]),
-        //             });
-        //         }
-        //     },
-        //     { immediate: true, deep: true }
-        // );
+        watch(
+            options,
+            () => {
+                if (options.value && options.value.length > 0) {
+                    emit('update:sidepanel-content', {
+                        path: 'optionProperties',
+                        value: Object.keys(options.value[0]),
+                    });
+                }
+            },
+            { immediate: true }
+        );
 
         const filteredOptions = computed(() => {
             if (!optionsFilter.value || !optionsFilter.value.value) return options.value;

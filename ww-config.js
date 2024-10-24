@@ -7,7 +7,7 @@ const bufferHelp =
 const minItemSizeHelp = 'The minimum height of an item in the virtual scroll.';
 
 const sizeDependenciesHelp =
-    'The property that can affect the size of the item. This prop will be watched and if it changes, the size will be recomputed.';
+    'The main property that can affect the size of the item. This prop will be watched and if it changes, the size will be recomputed.';
 
 export default {
     editor: {
