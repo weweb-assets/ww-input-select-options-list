@@ -51,7 +51,8 @@ export default {
     },
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
-        const selectData = inject('_wwSelectData', ref([]));
+        const selectRawData = inject('_wwSelectRawData', ref([]));
+        const selectOptions = inject('_wwSelectOptions', ref([]));
         const optionsFilter = inject('_wwSelectOptionsFilter', ref(null));
         const overwrittenItems = computed(() => props.content.overwrittenItems);
         const useVirtualScroll = computed(() => props.content.virtualScroll);
@@ -59,29 +60,32 @@ export default {
         const virtualScrollMinItemSize = computed(() => props.content.virtualScrollMinItemSize || 40);
         const virtualScrollBuffer = computed(() => props.content.virtualScrollBuffer || 400);
 
-        const options = computed(() =>
-            (overwrittenItems.value || []).length > 0 ? overwrittenItems.value : selectData.value
-        );
+        const options = computed(() => {
+            const items = (overwrittenItems.value || []).length > 0 ? overwrittenItems.value : selectRawData;
+            return (items.value || []).map((item, index) => {
+                return { ...item, wewebOption: selectOptions.value[index] };
+            });
+        });
 
-        watch(
-            options,
-            () => {
-                if (options.value && options.value.length > 0) {
-                    emit('update:sidepanel-content', {
-                        path: 'optionProperties',
-                        value: Object.keys(options.value[0]),
-                    });
-                }
-            },
-            { immediate: true, deep: true }
-        );
+        // watch(
+        //     options,
+        //     () => {
+        //         if (options.value && options.value.length > 0) {
+        //             emit('update:sidepanel-content', {
+        //                 path: 'optionProperties',
+        //                 value: Object.keys(options.value[0]),
+        //             });
+        //         }
+        //     },
+        //     { immediate: true, deep: true }
+        // );
 
         const filteredOptions = computed(() => {
             if (!optionsFilter.value || !optionsFilter.value.value) return options.value;
             const filterValue = optionsFilter.value.value.toLowerCase();
             const filterBy = optionsFilter.value.filterBy || 'label';
             return options.value.filter(option => {
-                const optionValue = String(option[filterBy]).toLowerCase();
+                const optionValue = `${option?.wewebOption?.[filterBy]}`.toLowerCase();
                 return optionValue.includes(filterValue);
             });
         });
