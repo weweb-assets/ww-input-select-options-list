@@ -51,7 +51,6 @@ export default {
     },
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
-        const selectRawData = inject('_wwSelectRawData', ref([]));
         const selectOptions = inject('_wwSelectOptions', ref([]));
         const optionsFilter = inject('_wwSelectOptionsFilter', ref(null));
         const overwrittenItems = computed(() => props.content.overwrittenItems);
@@ -60,10 +59,17 @@ export default {
         const virtualScrollMinItemSize = computed(() => props.content.virtualScrollMinItemSize || 40);
         const virtualScrollBuffer = computed(() => props.content.virtualScrollBuffer || 400);
 
-        const options = computed(() => {
-            const items = (overwrittenItems.value || []).length > 0 ? overwrittenItems.value : selectRawData;
-            return (items.value || []).map((item, index) => {
-                return { ...item, wewebOption: selectOptions.value[index] };
+        const options = computed(() =>
+            (overwrittenItems.value || []).length > 0 ? overwrittenItems.value : selectOptions.value
+        );
+
+        const filteredOptions = computed(() => {
+            if (!optionsFilter.value || !optionsFilter.value.value) return options.value;
+            const filterValue = optionsFilter.value.value.toLowerCase();
+            const filterBy = optionsFilter.value.filterBy || 'label';
+            return options.value.filter(option => {
+                const optionValue = `${option?.wewebOption?.[filterBy]}`.toLowerCase();
+                return optionValue.includes(filterValue);
             });
         });
 
@@ -79,16 +85,6 @@ export default {
             },
             { immediate: true }
         );
-
-        const filteredOptions = computed(() => {
-            if (!optionsFilter.value || !optionsFilter.value.value) return options.value;
-            const filterValue = optionsFilter.value.value.toLowerCase();
-            const filterBy = optionsFilter.value.filterBy || 'label';
-            return options.value.filter(option => {
-                const optionValue = `${option?.wewebOption?.[filterBy]}`.toLowerCase();
-                return optionValue.includes(filterValue);
-            });
-        });
 
         return {
             filteredOptions,
