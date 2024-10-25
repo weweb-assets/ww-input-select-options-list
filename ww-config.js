@@ -104,9 +104,9 @@ export default {
         virtualScrollSizeDependencies: {
             label: { en: 'Size dependencies' },
             type: 'TextSelect',
-            options: (_, sidepanelContetn) => {
+            options: (_, sidepanelContent) => {
                 return {
-                    options: sidepanelContetn.optionProperties.map(property => ({
+                    options: Object.keys(sidepanelContent.optionProperties).map(property => ({
                         value: property,
                         label: property,
                     })),
@@ -134,6 +134,10 @@ export default {
                 isWwObject: true,
                 type: 'fcc8a26b-a742-4823-a2c2-7384f2e5d547',
             },
+        },
+        emptyState: {
+            hidden: true,
+            defaultValue: [],
         },
     },
 };

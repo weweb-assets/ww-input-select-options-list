@@ -22,6 +22,7 @@
     },
     "license": "MIT",
     "dependencies": {
+        "@vueuse/core": "^11.1.0",
         "vue-virtual-scroller": "^2.0.0-beta.8"
     }
 }
