@@ -135,7 +135,7 @@ export default {
                 type: 'fcc8a26b-a742-4823-a2c2-7384f2e5d547',
             },
         },
-        emptyState: {
+        emptyList: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-flexbox', name: 'Empty list' },
         },

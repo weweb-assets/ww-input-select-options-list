@@ -32,7 +32,8 @@
         </wwLayoutItemContext>
     </div>
 
-    <wwElement v-show="filteredOptions.length === 0" class="ww-options-list-empty" v-bind="content.emptyState" />
+    <!-- TODO: TO BE FIXED -->
+    <!-- <wwElement v-show="!filteredOptions.length" class="ww-options-list-empty" v-bind="content.emptyList" /> -->
 </template>
 
 <script>
