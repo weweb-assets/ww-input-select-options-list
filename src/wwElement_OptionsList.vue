@@ -32,8 +32,7 @@
         </wwLayoutItemContext>
     </div>
 
-    <!-- TODO: Empty state -->
-    <wwLayout v-else class="ww-options-list-empty" path="emptyState" />
+    <wwElement v-show="filteredOptions.length === 0" class="ww-options-list-empty" v-bind="content.emptyState" />
 </template>
 
 <script>
@@ -56,7 +55,8 @@ export default {
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
         const rawData = inject('_wwRawData', ref([]));
-        const optionsFilter = inject('_wwSelectOptionsFilter', ref(null));
+        const searchState = inject('_wwSelectSearchState', ref(null));
+        const { updateSearch } = inject('_wwSelectUseSearch', {});
         const registerOptionProperties = inject('_wwRegisterOptionProperties', () => {});
         const overwrittenItems = computed(() => props.content.overwrittenItems);
         const useVirtualScroll = computed(() => props.content.virtualScroll || true);
@@ -75,7 +75,7 @@ export default {
         });
 
         const memoizedFilter = useMemoize((options, filterValue) => {
-            const searchBy = optionsFilter.value?.searchBy || ['label', 'value'];
+            const searchBy = searchState.value?.searchBy || ['label', 'value'];
             return options.filter(option => {
                 return searchBy.some(key => {
                     const optionValue = option[key];
@@ -85,8 +85,15 @@ export default {
         });
 
         const filteredOptions = computed(() => {
-            if (!optionsFilter.value || !optionsFilter.value.value) return options.value;
-            return memoizedFilter(options.value, optionsFilter.value.value);
+            if (!searchState.value || !searchState.value.value) return options.value;
+            return memoizedFilter(options.value, searchState.value.value);
+        });
+
+        watch(filteredOptions, () => {
+            if (updateSearch) {
+                const searchMatches = searchState.value && searchState.value.value ? filteredOptions.value : [];
+                updateSearch({ ...searchState.value, searchMatches });
+            }
         });
 
         watch(
