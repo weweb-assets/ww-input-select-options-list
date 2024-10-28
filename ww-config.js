@@ -28,7 +28,6 @@ export default {
         type: 'ww-layout',
     },
     options: {
-        autoByContent: true,
         displayAllowedValues: ['flex', 'grid', 'inline-flex', 'inline-grid'],
     },
     properties: {

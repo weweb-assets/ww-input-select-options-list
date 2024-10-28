@@ -1,6 +1,6 @@
 <template>
     <DynamicScroller
-        v-if="useVirtualScroll && filteredOptions.length > 0"
+        v-if="virtualScroll && filteredOptions.length > 0"
         class="ww-options-list"
         :items="filteredOptions"
         :min-item-size="virtualScrollMinItemSize"
@@ -20,7 +20,7 @@
         </template>
     </DynamicScroller>
 
-    <div v-else-if="filteredOptions.length > 0" class="ww-options-list" :style="$attrs.style" v-bind="$attrs">
+    <wwSimpleLayout v-else-if="!virtualScroll && filteredOptions.length > 0" class="ww-options-list">
         <wwLayoutItemContext
             v-for="(item, index) in filteredOptions"
             :key="index"
@@ -30,7 +30,7 @@
         >
             <wwElement v-bind="content.optionItem" />
         </wwLayoutItemContext>
-    </div>
+    </wwSimpleLayout>
 
     <!-- TODO: TO BE FIXED -->
     <!-- <wwElement v-show="!filteredOptions.length" class="ww-options-list-empty" v-bind="content.emptyList" /> -->
@@ -60,7 +60,7 @@ export default {
         const { updateSearch } = inject('_wwSelectUseSearch', {});
         const registerOptionProperties = inject('_wwRegisterOptionProperties', () => {});
         const overwrittenItems = computed(() => props.content.overwrittenItems);
-        const useVirtualScroll = computed(() => props.content.virtualScroll || true);
+        const virtualScroll = computed(() => props.content.virtualScroll);
         const virtualScrollSizeDependencies = computed(() => props.content.virtualScrollSizeDependencies);
         const virtualScrollMinItemSize = computed(() => props.content.virtualScrollMinItemSize || 40);
         const virtualScrollBuffer = computed(() => props.content.virtualScrollBuffer || 400);
@@ -100,11 +100,7 @@ export default {
         watch(
             optionProperties,
             value => {
-                emit('update:sidepanel-content', {
-                    path: 'optionProperties',
-                    value,
-                });
-
+                emit('update:sidepanel-content', { path: 'optionProperties', value });
                 if (registerOptionProperties) registerOptionProperties(value);
             },
             { immediate: true }
@@ -112,7 +108,7 @@ export default {
 
         return {
             filteredOptions,
-            useVirtualScroll,
+            virtualScroll,
             virtualScrollSizeDependencies,
             virtualScrollMinItemSize,
             virtualScrollBuffer,
@@ -128,5 +124,17 @@ export default {
 <style scoped>
 .ww-options-list {
     height: 100%;
+    width: 100%;
+}
+</style>
+
+<style>
+.toto {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 16px !important;
+    padding: 16px !important;
+    align-items: start !important;
+    justify-items: stretch !important;
 }
 </style>
