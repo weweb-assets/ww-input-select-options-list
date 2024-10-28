@@ -1,7 +1,6 @@
 <template>
     <DynamicScroller
         v-if="virtualScroll && filteredOptions.length > 0"
-        class="ww-options-list"
         :items="filteredOptions"
         :min-item-size="virtualScrollMinItemSize"
         :buffer="virtualScrollBuffer"
@@ -20,7 +19,7 @@
         </template>
     </DynamicScroller>
 
-    <wwSimpleLayout v-else-if="!virtualScroll && filteredOptions.length > 0" class="ww-options-list">
+    <wwSimpleLayout v-else-if="!virtualScroll && filteredOptions.length > 0">
         <wwLayoutItemContext
             v-for="(item, index) in filteredOptions"
             :key="index"
@@ -32,8 +31,7 @@
         </wwLayoutItemContext>
     </wwSimpleLayout>
 
-    <!-- TODO: TO BE FIXED -->
-    <!-- <wwElement v-show="!filteredOptions.length" class="ww-options-list-empty" v-bind="content.emptyList" /> -->
+    <wwLayout v-show="filteredOptions.length === 0" path="emptyList" />
 </template>
 
 <script>
@@ -119,22 +117,4 @@ export default {
 
 <style>
 @import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-</style>
-
-<style scoped>
-.ww-options-list {
-    height: 100%;
-    width: 100%;
-}
-</style>
-
-<style>
-.toto {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-    gap: 16px !important;
-    padding: 16px !important;
-    align-items: start !important;
-    justify-items: stretch !important;
-}
 </style>
