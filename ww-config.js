@@ -1,5 +1,5 @@
 const virtualScrollHelp =
-    'If true, the options list will use a virtual scroll. This can improve performance when the list is large.';
+    'Virtual scrolling optimizes performance by only rendering visible options and a small buffer around them. When enabled, this feature can significantly improve loading and scrolling performance for large lists.</br></br>Important notes:</br>- The layout will be forced to a vertical list format</br>- Option items must be positioned at the root level of the Options List';
 
 const bufferHelp =
     'The buffer is the amount of pixel to add to edges of the scrolling visible area to start rendering items further away.';
@@ -16,7 +16,7 @@ export default {
         hint: () => {
             return {
                 header: 'Options overwriting',
-                text: "By default, the option list repeats your select data. However, you have the flexibility to customize the items by configuring the `Overwritten items` property. This feature proves particularly useful when you need to manage categories within your options. </br></br>It's important to note that the virtual scroll functionality is only effective when your option items are positioned at the root level of the Options List.",
+                text: 'By default, the option list repeats your select data. However, you have the flexibility to customize the items by configuring the `Overwritten items` property.',
             };
         },
         customStylePropertiesOrder: [
