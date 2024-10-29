@@ -31,7 +31,10 @@
         </wwLayoutItemContext>
     </wwSimpleLayout>
 
-    <wwLayout v-show="filteredOptions.length === 0" path="emptyList" />
+    <wwLayout
+        v-show="filteredOptions.length === 0 || wwEditorState.sidepanelContent.showEmptyStateInEditor"
+        path="emptyList"
+    />
 </template>
 
 <script>
@@ -53,6 +56,14 @@ export default {
     },
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
+        const isEditing = computed(() => {
+            /* wwEditor:start */
+            return props.wwEditorState.isEditing;
+            /* wwEditor:end */
+            // eslint-disable-next-line no-unreachable
+            return false;
+        });
+
         const rawData = inject('_wwRawData', ref([]));
         const searchState = inject('_wwSelectSearchState', ref(null));
         const { updateSearch } = inject('_wwSelectUseSearch', {});
@@ -103,6 +114,16 @@ export default {
             },
             { immediate: true }
         );
+
+        /* wwEditor:start */
+        watch(
+            isEditing,
+            () => {
+                emit('update:sidepanel-content', { path: 'showEmptyStateInEditor', value: false });
+            },
+            { immediate: true, deep: true }
+        );
+        /* wwEditor:end */
 
         return {
             filteredOptions,

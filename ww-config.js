@@ -22,6 +22,7 @@ export default {
         customStylePropertiesOrder: [
             'overwrittenItems',
             ['virtualScroll', 'virtualScrollBuffer', 'virtualScrollMinItemSize', 'virtualScrollSizeDependencies'],
+            'showEmptyStateInEditor',
         ],
     },
     inherit: {
@@ -121,6 +122,12 @@ export default {
                 tooltip: sizeDependenciesHelp,
             },
             /* wwEditor:end */
+        },
+        showEmptyStateInEditor: {
+            label: { en: 'Show empty state editor' },
+            type: 'OnOff',
+            defaultValue: false,
+            editorOnly: true,
         },
         optionProperties: {
             hidden: true,
