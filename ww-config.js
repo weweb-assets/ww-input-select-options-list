@@ -124,7 +124,7 @@ export default {
             /* wwEditor:end */
         },
         showEmptyStateInEditor: {
-            label: { en: 'Show empty state editor' },
+            label: { en: 'Show empty state in editor' },
             type: 'OnOff',
             defaultValue: false,
             editorOnly: true,
