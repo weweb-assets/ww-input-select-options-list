@@ -14,7 +14,7 @@
                 :data-index="index"
             >
                 <wwLayoutItemContext :key="index" is-repeat :index="index" :data="item">
-                    <wwElement v-bind="content.optionItem" />
+                    <wwElement :local-data="item" v-bind="content.optionItem" />
                 </wwLayoutItemContext>
             </DynamicScrollerItem>
         </template>
@@ -28,15 +28,12 @@
             :index="index"
             :data="item"
         >
-            <wwElement v-bind="content.optionItem" />
+            <wwElement :local-data="item" v-bind="content.optionItem" />
         </wwLayoutItemContext>
     </wwSimpleLayout>
 
-    <div>
-        <wwElement
-            v-show="filteredOptions.length === 0 || wwEditorState.sidepanelContent.showEmptyStateInEditor"
-            v-bind="content.emptyStateContainer"
-        />
+    <div v-show="filteredOptions.length === 0 || showEmptyStateInEditor">
+        <wwElement v-bind="content.emptyStateContainer" />
     </div>
 </template>
 
@@ -62,6 +59,14 @@ export default {
         const isEditing = computed(() => {
             /* wwEditor:start */
             return props.wwEditorState.isEditing;
+            /* wwEditor:end */
+            // eslint-disable-next-line no-unreachable
+            return false;
+        });
+
+        const showEmptyStateInEditor = computed(() => {
+            /* wwEditor:start */
+            return props.wwEditorState.sidepanelContent.showEmptyStateInEditor;
             /* wwEditor:end */
             // eslint-disable-next-line no-unreachable
             return false;
@@ -134,6 +139,7 @@ export default {
             virtualScrollSizeDependencies,
             virtualScrollMinItemSize,
             virtualScrollBuffer,
+            showEmptyStateInEditor,
         };
     },
 };
