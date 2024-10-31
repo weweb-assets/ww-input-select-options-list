@@ -4,6 +4,7 @@
         :items="filteredOptions"
         :min-item-size="virtualScrollMinItemSize"
         :buffer="virtualScrollBuffer"
+        :key="filteredOptions.length"
     >
         <template v-slot="{ item, index, active }">
             <DynamicScrollerItem
@@ -31,10 +32,12 @@
         </wwLayoutItemContext>
     </wwSimpleLayout>
 
-    <wwLayout
-        v-show="filteredOptions.length === 0 || wwEditorState.sidepanelContent.showEmptyStateInEditor"
-        path="emptyList"
-    />
+    <div>
+        <wwElement
+            v-show="filteredOptions.length === 0 || wwEditorState.sidepanelContent.showEmptyStateInEditor"
+            v-bind="content.emptyStateContainer"
+        />
+    </div>
 </template>
 
 <script>
