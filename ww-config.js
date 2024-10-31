@@ -16,7 +16,7 @@ export default {
         hint: () => {
             return {
                 header: 'Options overwriting',
-                text: 'By default, the option list repeats your select data. However, you have the flexibility to customize the items by configuring the `Overwritten items` property.',
+                text: 'By default, the options list mirrors your selected data. However, you can customize the items by adjusting the Overwritten items property to fit your needs.',
             };
         },
         customStylePropertiesOrder: [
