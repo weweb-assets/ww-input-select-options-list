@@ -15,15 +15,16 @@ export default {
         icon: 'select',
         hint: () => {
             return {
+                section: 'settings',
                 header: 'Options overwriting',
                 text: 'By default, the options list mirrors your selected data. However, you can customize the items by adjusting the Overwritten items property to fit your needs.',
             };
         },
         customStylePropertiesOrder: [
-            'overwrittenItems',
             ['virtualScroll', 'virtualScrollBuffer', 'virtualScrollMinItemSize', 'virtualScrollSizeDependencies'],
             'showEmptyStateInEditor',
         ],
+        customSettingsPropertiesOrder: ['overwrittenItems'],
     },
     inherit: {
         type: 'ww-layout',
@@ -50,9 +51,14 @@ export default {
                         type: 'object',
                     },
                 ],
-                tooltip: 'A collection or an array of data: \n\n`myCollection` or `[{}, {}, ...]`',
+                tooltip:
+                    'Overwrite the items from the `Choices` property. Can be used for filtering or custom search. A collection or an array of data: \n\n`myCollection` or `[{}, {}, ...]`',
+            },
+            propertyHelp: {
+                tooltip: 'Overwrite the items from the `Choices` property. Can be used for filtering or custom search.',
             },
             /* wwEditor:end */
+            section: 'settings',
         },
         virtualScroll: {
             label: { en: 'Virtual scroll' },
