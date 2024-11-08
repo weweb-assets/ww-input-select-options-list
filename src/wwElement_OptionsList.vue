@@ -20,7 +20,7 @@
         </template>
     </DynamicScroller>
 
-    <wwSimpleLayout v-else-if="!virtualScroll && filteredOptions.length > 0">
+    <wwSimpleLayout inherit-component-style v-else-if="!virtualScroll && filteredOptions.length > 0">
         <wwLayoutItemContext
             v-for="(item, index) in filteredOptions"
             :key="index"
