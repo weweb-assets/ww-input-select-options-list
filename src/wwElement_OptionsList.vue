@@ -97,7 +97,18 @@ export default {
             return options.filter(option => {
                 return searchBy.some(key => {
                     const optionValue = option[key];
-                    return optionValue && optionValue.toString().toLowerCase().includes(filterValue.toLowerCase());
+                    if (!optionValue) return false;
+                    const normalizedOption = optionValue
+                        .toString()
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
+                        .toLowerCase();
+                    const normalizedFilter = filterValue
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
+                        .toLowerCase();
+
+                    return normalizedOption.includes(normalizedFilter);
                 });
             });
         });
