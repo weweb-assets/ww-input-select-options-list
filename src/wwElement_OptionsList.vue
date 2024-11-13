@@ -41,6 +41,9 @@
 import { ref, inject, computed, watch } from 'vue';
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 import { useMemoize } from '@vueuse/core';
+/* wwEditor:start */
+import useEditorHint from './editor/useEditorHint';
+/* wwEditor:end */
 
 export default {
     components: {
@@ -56,6 +59,10 @@ export default {
     },
     emits: ['update:sidepanel-content'],
     setup(props, { emit }) {
+        /* wwEditor:start */
+        useEditorHint(emit);
+        /* wwEditor:end */
+
         const isEditing = computed(() => {
             /* wwEditor:start */
             return props.wwEditorState.isEditing;

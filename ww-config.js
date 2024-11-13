@@ -13,18 +13,32 @@ export default {
     editor: {
         label: 'Select Options List',
         icon: 'select',
-        hint: () => {
-            return {
-                section: 'settings',
-                header: 'Options overwriting',
-                text: 'By default, the options list mirrors your selected data. However, you can customize the items by adjusting the Overwritten items property to fit your needs.',
+        hint: (_, sidepanelContent) => {
+            const warning = {
+                section: 'style',
+                type: 'warning',
+                text: 'Options List must be placed inside a Select element.',
             };
+
+            return [
+                ...(sidepanelContent.isInSelect === false ? [warning] : []),
+                {
+                    section: 'settings',
+                    header: 'Options overwriting',
+                    text: 'By default, the options list mirrors your selected data. However, you can customize the items by adjusting the Overwritten items property to fit your needs.',
+                },
+                {
+                    section: 'settings',
+                    header: 'Virtual scroll',
+                    text: virtualScrollHelp,
+                },
+            ];
         },
-        customStylePropertiesOrder: [
+        customStylePropertiesOrder: 'showEmptyStateInEditor',
+        customSettingsPropertiesOrder: [
+            ['overwrittenItems'],
             ['virtualScroll', 'virtualScrollBuffer', 'virtualScrollMinItemSize', 'virtualScrollSizeDependencies'],
-            'showEmptyStateInEditor',
         ],
-        customSettingsPropertiesOrder: ['overwrittenItems'],
     },
     inherit: {
         type: 'ww-layout',
@@ -154,6 +168,11 @@ export default {
                 type: 'ww-flexbox',
                 name: 'Empty state',
             },
+        },
+        isInSelect: {
+            hidden: true,
+            editorOnly: true,
+            defaultValue: false,
         },
     },
 };
