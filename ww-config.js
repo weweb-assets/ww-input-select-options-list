@@ -69,9 +69,6 @@ export default {
                 tooltip:
                     'Overwrite the items from the `Choices` property. Can be used for filtering or custom search. A collection or an array of data: \n\n`myCollection` or `[{}, {}, ...]`',
             },
-            propertyHelp: {
-                tooltip: 'Overwrite the items from the `Choices` property. Can be used for filtering or custom search.',
-            },
             /* wwEditor:end */
             section: 'settings',
         },
