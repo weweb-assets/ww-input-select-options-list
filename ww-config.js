@@ -36,7 +36,7 @@ export default {
         },
         customStylePropertiesOrder: 'showEmptyStateInEditor',
         customSettingsPropertiesOrder: [
-            ['overwrittenItems'],
+            'overwrittenItems',
             ['virtualScroll', 'virtualScrollBuffer', 'virtualScrollMinItemSize', 'virtualScrollSizeDependencies'],
         ],
     },
@@ -55,6 +55,7 @@ export default {
             },
             bindable: true,
             defaultValue: [],
+            section: 'settings',
             /* wwEditor:start */
             bindingValidation: {
                 validations: [
@@ -79,6 +80,7 @@ export default {
             type: 'OnOff',
             defaultValue: true,
             bindable: true,
+            section: 'settings',
             /* wwEditor:start */
             bindingValidation: {
                 validations: [{ type: 'boolean' }],
@@ -94,6 +96,7 @@ export default {
             type: 'Number',
             defaultValue: 600,
             bindable: true,
+            section: 'settings',
             /* wwEditor:start */
             bindingValidation: {
                 validations: [{ type: 'number' }],
@@ -110,6 +113,7 @@ export default {
             type: 'Number',
             defaultValue: 40,
             bindable: true,
+            section: 'settings',
             /* wwEditor:start */
             bindingValidation: {
                 validations: [{ type: 'number' }],
@@ -124,6 +128,7 @@ export default {
         virtualScrollSizeDependencies: {
             label: { en: 'Size dependencies' },
             type: 'TextSelect',
+            section: 'settings',
             options: (_, sidepanelContent) => {
                 return {
                     options: Object.keys(sidepanelContent.optionProperties).map(property => ({
