@@ -79,10 +79,10 @@ export default {
             return false;
         });
 
-        const rawData = inject('_wwSelectRawData', ref([]));
-        const searchState = inject('_wwSelectSearchState', ref(null));
-        const { updateSearch } = inject('_wwSelectUseSearch', {});
-        const registerOptionProperties = inject('_wwSelectRegisterOptionProperties', () => {});
+        const rawData = inject('_wwSelect:rawData', ref([]));
+        const searchState = inject('_wwSelect:searchState', ref(null));
+        const { updateSearch } = inject('_wwSelect:useSearch', {});
+        const registerOptionProperties = inject('_wwSelect:registerOptionProperties', () => {});
         const overwrittenItems = computed(() => props.content.overwrittenItems);
         const virtualScroll = computed(() => props.content.virtualScroll);
         const virtualScrollSizeDependencies = computed(() => props.content.virtualScrollSizeDependencies);
