@@ -160,7 +160,7 @@ export default {
             hidden: true,
             defaultValue: {
                 isWwObject: true,
-                type: 'fcc8a26b-a742-4823-a2c2-7384f2e5d547',
+                type: '88a32ec0-8c33-4258-b42c-6f5dfbc944cb',
             },
         },
         emptyStateContainer: {
